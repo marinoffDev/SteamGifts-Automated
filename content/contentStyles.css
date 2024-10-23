@@ -1,0 +1,18 @@
+.add-to-list-button {
+  max-width: 7rem;
+  margin-right: 0.5rem;
+}
+
+.rows-custom {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.inner-rows-custom {
+  display: flex;
+  flex-grow: 1;
+}

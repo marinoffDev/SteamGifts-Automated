@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "SteamGifts Automated",
+  "version": "1.0.0",
+  "description": "This Chrome extension enhances the SteamGifts website by allowing you to easily save a list of your preferred game giveaways. With just a single click, it scans open giveaways that match your list and automatically enters you into them. The goal is to streamline your giveaway participation and minimize the number of clicks required each time you visit the SteamGifts website.",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://www.steamgifts.com/*",
+    "https://www.steamgifts.com/*"
+  ],
+  "background": {
+    "service_worker": "./background/background.js"
+  },
+  "action": {
+    "default_popup": "./popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.steamgifts.com/*"],
+      "js": ["./content/contentScript.js"],
+      "css": ["./content/contentStyles.css"]
+    }
+  ]
+}

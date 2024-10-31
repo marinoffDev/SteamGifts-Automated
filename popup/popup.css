@@ -1,34 +1,48 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 10px;
+  padding: 0.75rem;
+  background-color: rgb(6, 6, 30);
+  color: rgb(224, 224, 235);
+}
+
+p {
+  padding-bottom: 0.5rem;
+}
+
+h2 {
+  margin-top: 2rem;
+}
+
+#coffeeLink {
+  color: rgb(184, 184, 255);
 }
 
 button {
-  padding: 10px;
-  background-color: #3498db;
-  color: white;
+  padding: 0.75rem;
+  background-color: rgb(199, 199, 255);
+  font-weight: bold;
+  color: rgb(20, 20, 25);
   border: none;
-  border-radius: 5px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  margin-right: 10px;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: rgb(163, 163, 221);
 }
 
 .btn-danger {
-  padding: 10px;
-  background-color: #e74c3c;
-  color: white;
+  padding: 0.75rem;
+  background-color: rgb(34, 34, 102);
+  color: rgb(199, 199, 255);
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  margin-right: 10px;
 }
 
 .btn-danger:hover {
-  background-color: #ad392c;
+  background-color: rgb(26, 26, 83);
 }
 
 .title-section {
@@ -38,24 +52,23 @@ button:hover {
 }
 
 #gameList {
-  margin-top: 20px;
   list-style-type: none;
   padding: 0;
 }
 
 #gameList li {
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
+  margin: 0.5rem 0rem 0.5rem 0rem;
+  background-color: rgb(9, 9, 78);
+  border-radius: 0.25rem;
 }
 
 #gameList li:hover {
-  background-color: #d6d6d6;
+  background-color: rgb(10, 10, 110);
 }
 
 #gameList li a {
   text-decoration: none;
-  color: #3498db;
+  color: rgb(224, 224, 235);
   font-weight: bold;
+  margin-left: 0.75rem;
 }

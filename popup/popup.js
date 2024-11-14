@@ -2,7 +2,7 @@ let gameIdsToScrape = [];
 
 // Function to load game list and populate it in the popup
 async function loadGameList() {
-  const result = await chrome.storage.sync.get(['gameList']);
+  const result = await chrome.storage.local.get(['gameList']);
   const gameListElement = document.getElementById('gameList');
   gameListElement.innerHTML = ''; // Clear existing list
 
@@ -48,9 +48,9 @@ function createRemoveButton(gameId) {
 
 // Remove specific game from storage
 async function removeGameFromList(gameId) {
-  const result = await chrome.storage.sync.get(['gameList']);
+  const result = await chrome.storage.local.get(['gameList']);
   const updatedGameList = result.gameList.filter(game => game.id !== gameId);
-  await chrome.storage.sync.set({ gameList: updatedGameList });
+  await chrome.storage.local.set({ gameList: updatedGameList });
   loadGameList();
 }
 
@@ -69,6 +69,6 @@ document.addEventListener('DOMContentLoaded', loadGameList);
 
 document.getElementById('enterAllBtn').addEventListener('click', triggerGiveawayEntry);
 document.getElementById('clearListBtn').addEventListener('click', async () => {
-  await chrome.storage.sync.remove('gameList');
+  await chrome.storage.local.remove('gameList');
   loadGameList();
 });

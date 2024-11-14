@@ -4,7 +4,7 @@ let pointsBudget = 0;
 
 // Load the game list from storage and mark added games
 async function loadGameList() {
-  const result = await chrome.storage.sync.get(['gameList']);
+  const result = await chrome.storage.local.get(['gameList']);
   gameList = result.gameList || [];
   gameList.forEach(savedGame => {
     markGiveawayAsAdded(savedGame.id);
@@ -67,7 +67,7 @@ function createAddButton(gameId, gameName, gameLink) {
 
 // Save updated game list to storage
 async function saveGameList() {
-  await chrome.storage.sync.set({ gameList });
+  await chrome.storage.local.set({ gameList });
   console.log('Game list saved!');
 }
 
@@ -113,7 +113,7 @@ async function processGiveawaysPage(html, gameIds, pointsBudget, page, accumulat
     
     if (gameIds.includes(gameId) && !innerWrap.classList.contains('is-faded')) {
       pointsBudget = Number(pointsBudget) - Number(gameCost)
-      if (pointsBudget > 0) {
+      if (pointsBudget >= 0) {
         accumulatedGiveaways.push({ id: gameId, name: gameNameElement.textContent, link: gameLink, cost: gameCost });
       }
     }

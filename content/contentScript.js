@@ -86,7 +86,6 @@ function getPointsBudget() {
 async function scrapeAllGiveaways(gameIds, pointsBudget, page = 1, accumulatedGiveaways = []) {
   const url = `https://www.steamgifts.com/giveaways/search?page=${page}`;
   try {
-    await delay(500, 2000);
     const response = await fetch(url);
     const html = await response.text();
     const giveaways = await processGiveawaysPage(html, gameIds, pointsBudget, page, accumulatedGiveaways);
@@ -132,7 +131,6 @@ async function processGiveawaysPage(html, gameIds, pointsBudget, page, accumulat
 async function processGiveawayEntries(giveaways) {
   for (const giveaway of giveaways) {
     const giveawayPageUrl = `https://www.steamgifts.com${giveaway.link}`;
-    await delay(500, 2000); 
     await chrome.runtime.sendMessage({ action: 'openGiveawayTab', giveawayPageUrl, giveawayCost: giveaway.cost });
   }
   console.log('Finished entering all giveaways');
@@ -149,9 +147,6 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     sendResponse({ status: 'success' });
   }
 });
-
-// Helper function to introduce a randomized delay to help avoid automation detection
-const delay = (min, max) => new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * (max - min + 1)) + min));
 
 // Initialization
 loadGameList();

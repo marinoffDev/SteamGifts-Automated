@@ -13,8 +13,8 @@
 - [📄 License](#-license)
 ---
 
-## 🔍 Overview 
-The SteamGifts Automated Chrome extension simplifies tracking and joining game giveaways on SteamGifts. Add games to your list, and with one click, the extension automatically enters you into eligible giveaways.
+## 🔍 Overview
+The SteamGifts Automated Chrome extension simplifies tracking and joining game giveaways on the [SteamGifts website](https://www.steamgifts.com). Add games to your list, and with one click, the extension automatically enters you into eligible giveaways.
 
 ## 🤔 How to Use the SteamGifts Automated Extension
 1. Open https://www.steamgifts.com and ensure you're logged into your Steam account.

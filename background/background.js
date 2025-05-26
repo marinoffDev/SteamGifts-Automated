@@ -5,18 +5,19 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     const tabId = await openGiveawayTab(message.giveawayPageUrl, message.giveawayCost);
     sendResponse({ tabId });
   }
-  return true; // Keep the message channel open for asynchronous response
+  return true;
 });
 
-// Open a new tab and send message to content script when tab is ready
 async function openGiveawayTab(giveawayPageUrl, giveawayCost) {
   return new Promise((resolve) => {
     chrome.tabs.create({ url: giveawayPageUrl, active: false }, (newTab) => {
       chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
         if (tabId === newTab.id && info.status === 'complete') {
-          chrome.tabs.sendMessage(tabId, { action: 'enterGiveaway', giveawayCost });
-          chrome.tabs.onUpdated.removeListener(listener); // Remove listener after it's done
-          resolve(tabId);
+          chrome.tabs.sendMessage(tabId, { action: 'enterGiveaway', giveawayCost }, () => {
+            chrome.tabs.remove(tabId);
+            resolve(tabId);
+          });
+          chrome.tabs.onUpdated.removeListener(listener);
         }
       });
     });

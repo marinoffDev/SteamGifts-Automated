@@ -2,7 +2,6 @@ let gameList = [];
 let gameIdsToScrape = [];
 let pointsBudget = 0;
 
-// Load the game list from storage and mark added games
 async function loadGameList() {
   const result = await chrome.storage.local.get(['gameList']);
   gameList = result.gameList || [];
@@ -11,7 +10,6 @@ async function loadGameList() {
   });
 }
 
-// Mark giveaways as added
 function markGiveawayAsAdded(gameId) {
   const giveawayRows = document.querySelectorAll('.giveaway__row-outer-wrap');
   giveawayRows.forEach(row => {
@@ -27,7 +25,6 @@ function markGiveawayAsAdded(gameId) {
   });
 }
 
-// Inject 'Add to List' buttons into each giveaway row
 function injectAddButtons() {
   const giveawayRows = document.querySelectorAll('.giveaway__row-outer-wrap');
   giveawayRows.forEach(row => {
@@ -46,7 +43,21 @@ function injectAddButtons() {
   });
 }
 
-// Create 'Add to List' button
+function injectEnterGiveawayBtn() {
+  const nav = document.getElementsByClassName('nav__left-container');
+  const addButton = document.createElement('button');
+  addButton.textContent = 'Enter Giveaways';
+  addButton.classList.add('nav__button');
+  addButton.addEventListener('click', async () => {
+    pointsBudget = getPointsBudget();
+    const response = await scrapeAllGiveaways(gameList.map(game => game.id), pointsBudget);
+    if (response) {
+      console.log('Giveaway entry process completed successfully.');
+    }
+  });
+  nav[0].appendChild(addButton);
+}
+
 function createAddButton(gameId, gameName, gameLink) {
   const addButton = document.createElement('button');
   addButton.textContent = 'Add to List';
@@ -65,24 +76,20 @@ function createAddButton(gameId, gameName, gameLink) {
   return addButton;
 }
 
-// Save updated game list to storage
 async function saveGameList() {
   await chrome.storage.local.set({ gameList });
   console.log('Game list saved!');
 }
 
-// Check if the game is already in the list
 function isGameInList(gameId) {
   return gameList.some(game => game.id === gameId);
 }
 
-// Scrape points budget from the page
 function getPointsBudget() {
   const pointsElement = document.querySelector('.nav__points');
   return pointsElement ? parseInt(pointsElement.textContent, 10) : 0;
 }
 
-// Scrape all giveaways across multiple pages
 async function scrapeAllGiveaways(gameIds, pointsBudget, page = 1, accumulatedGiveaways = []) {
   const url = `https://www.steamgifts.com/giveaways/search?page=${page}`;
   try {
@@ -95,7 +102,6 @@ async function scrapeAllGiveaways(gameIds, pointsBudget, page = 1, accumulatedGi
   }
 }
 
-// Process a page of giveaways
 async function processGiveawaysPage(html, gameIds, pointsBudget, page, accumulatedGiveaways) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
@@ -127,7 +133,6 @@ async function processGiveawaysPage(html, gameIds, pointsBudget, page, accumulat
   }
 }
 
-// Process each giveaway entry
 async function processGiveawayEntries(giveaways) {
   for (const giveaway of giveaways) {
     const giveawayPageUrl = `https://www.steamgifts.com${giveaway.link}`;
@@ -136,18 +141,22 @@ async function processGiveawayEntries(giveaways) {
   console.log('Finished entering all giveaways');
 }
 
-// Listen for incoming messages
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   if (message.action === 'enterGiveaways') {
     pointsBudget = getPointsBudget();
     await scrapeAllGiveaways(message.gameIds, pointsBudget);
     sendResponse({ status: 'success' });
   } else if (message.action === 'enterGiveaway') {
-    document.querySelector('.sidebar__entry-insert').click();
-    sendResponse({ status: 'success' });
+    const entryButton = document.querySelector('.sidebar__entry-insert');
+    if (entryButton) {
+      entryButton.click();
+      sendResponse({ status: 'success' });
+    } else {
+      sendResponse({ status: 'failure', error: 'Entry button not found' });
+    }
   }
 });
 
-// Initialization
 loadGameList();
 injectAddButtons();
+injectEnterGiveawayBtn();

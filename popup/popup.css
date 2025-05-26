@@ -31,7 +31,7 @@ button:hover {
   background-color: rgb(163, 163, 221);
 }
 
-.btn-danger {
+.btn-secondary {
   padding: 0.75rem;
   background-color: rgb(34, 34, 102);
   color: rgb(199, 199, 255);
@@ -41,8 +41,23 @@ button:hover {
   cursor: pointer;
 }
 
-.btn-danger:hover {
+.btn-secondary:hover {
   background-color: rgb(26, 26, 83);
+}
+
+.btn-danger {
+  padding: 0.75rem;
+  background-color: rgb(94, 33, 33);
+  color: rgb(199, 199, 255);
+  font-weight: bold;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  color: white;
+  background-color: rgb(187, 23, 23);
 }
 
 .title-section {

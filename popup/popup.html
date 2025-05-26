@@ -11,14 +11,17 @@
         <a id="coffeeLink" href="https://ko-fi.com/marinoffdev" target="_blank">Buy Me a Coffee</a>
       </div>
       <p>Automatically join available giveaways from the games list below</p>
-      <div style="display: flex; justify-content: space-between;">
-        <button id="enterAllBtn">Enter Giveaways</button>
-        <button id="clearListBtn" class="btn-danger">Clear List</button>
+      <button id="enterAllBtn" style="min-width: 100%;">Enter Giveaways</button>
+      <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+        <button id="exportBtn" class="btn-secondary">Export Giveaway List</button>
+        <label for="importInput" class="btn-secondary">Import Giveaway List</label>
+        <input type="file" id="importInput" accept=".json" style="display: none;">
       </div>
       <h2>Your Games List:</h2>
       <ul id="gameList">
         <!-- The game list will be injected here -->
       </ul>
+      <button id="clearListBtn" class="btn-danger" style="min-width: 100%; margin-top: 1rem;">Delete Giveaway List</button>
     </section>
     <script src="popup.js"></script>
   </body>

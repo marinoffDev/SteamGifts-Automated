@@ -14,8 +14,10 @@ async function openGiveawayTab(giveawayPageUrl, giveawayCost) {
       chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
         if (tabId === newTab.id && info.status === 'complete') {
           chrome.tabs.sendMessage(tabId, { action: 'enterGiveaway', giveawayCost }, () => {
-            chrome.tabs.remove(tabId);
-            resolve(tabId);
+            setTimeout(() => {
+              chrome.tabs.remove(tabId);
+              resolve(tabId);
+            }, 1500);
           });
           chrome.tabs.onUpdated.removeListener(listener);
         }

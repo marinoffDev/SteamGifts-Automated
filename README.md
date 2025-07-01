@@ -28,6 +28,7 @@ The SteamGifts Automated Chrome extension simplifies tracking and joining game g
 3. Open a Chromium-based browser (e.g., Chrome, Edge, Brave) and navigate to the **Manage Extensions** page.
 4. Enable **Developer mode** (usually it's a toggle on in the top-right corner of the page).
 5. Click **Load unpacked** and select the folder where you extracted the files in Step #2
+Optional: Once installed, click on the extension icon and use the "**Import Giveaway List**" feature to load the `EXAMPLE_GIVEAWAY_LIST.json` file which contains a sample collection of good quality games. Note, the site already auto-hides giveaways of games you already own in your Steam Library, so you will not enter repeat giveaways even if they are part of the list.
 
 
 ## 🤝 Contributing
